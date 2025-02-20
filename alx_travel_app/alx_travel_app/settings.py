@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 CELERY_BROKER_URL = "amqp://localhost"
 CELERY_ACCEPT_CONTENT = ["json"]
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'listings',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

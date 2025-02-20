@@ -16,5 +16,4 @@ class BookingSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ['id', 'booking', 'transaction_id', 'amount', 'status', 'created_at', 'updated_at']
-        read_only_fields = ['transaction_id', 'status', 'created_at', 'updated_at']
+        fields = '__all__'

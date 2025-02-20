@@ -46,6 +46,19 @@ class PaymentViewSet(viewsets.ModelViewSet):
         """
         Initiates a payment transaction with Chapa.
         """
+        email = request.data.get('email')
+        if not email:
+            return Response({'error': 'Email is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        first_name = request.data.get('first_name')
+        if not first_name:
+            return Response({'error': 'First name is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        last_name = request.data.get('last_name')
+        if not last_name:
+            return Response({'error': 'Last name is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        phone_number = request.data.get('phone_number')
         try:
             booking = Booking.objects.get(id=pk)
             if hasattr(booking, 'payment'):
@@ -60,9 +73,10 @@ class PaymentViewSet(viewsets.ModelViewSet):
             payload = {
                 "amount": str(booking.total_price),
                 "currency": "ETB",
-                "email": booking.user.email,
-                "first_name": booking.user.first_name,
-                "last_name": booking.user.last_name,
+                "email": email,
+                "first_name": first_name,
+                "last_name": last_name,
+                "phone_number": phone_number,
                 "tx_ref": transaction_id,
                 "callback_url": "https://dummy.com/payment/callback/",
             }
